@@ -1,0 +1,32 @@
+<!--分类页面，分为左右两部分，都可以滚动-->
+<view class='caregory'>
+  <scroll-view class="nav_left" scroll-y>
+  <!--遍历接口文件的分类信息，然后进行根据所选按钮进行展示商品信息
+  class="nav_left_items {{curIndex == index ? 'nav_left_item-active' : ''}  }"是选中分类就变成红色，
+  data-index="{{index}} 数据传递
+  bindtap="switchRightTab" 事件注册-->
+    <block wx:for="{{navLeftItems}}" wx:key="index">
+      <view class="nav_left_items {{curIndex == index ? 'nav_left_item-active' : ''}}" data-index="{{index}}" bindtap="switchRightTab">
+      {{item}}
+      </view>
+    </block>
+    <!--右边商品的展示，首先判断是否存在数据，因为有很多分类没有数据，然后遍历商品信息-->
+  </scroll-view>
+  <scroll-view class='nav_right' scroll-y>
+      <view wx:if='{navRightItems[curIndex]' style='padding-bottom: 10px;'>
+      <block wx:for="{{navRightItems[curIndex]}}" wx:key="index" wx:key="index" wx:for-item="item">
+        <view class='jd-category'>
+          <view class='title'>{{item.title}}</view>
+          <view class='jd-category-wrap'>
+            <block wx:for="{{item.desc}}" wx:key="index" wx:for-item="list">
+              <view class='jd-category-style' data-txt="{{list.text}}" bindtap='showListView'>
+                <image class='list_img' src='{{list.img}}'></image>
+                <text class='list_text'>{{list.text}}</text>
+              </view>
+            </block>
+          </view>
+        </view>
+      </block>
+    </view>
+  </scroll-view>
+</view>
